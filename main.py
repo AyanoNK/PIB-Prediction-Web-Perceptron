@@ -1,10 +1,12 @@
 #!/usr/bin/python
 # coding: utf-8
 from flask import Flask, request
+from flask_cors import CORS
 
 from perceptron import predictor
 
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/er', methods=['GET'])
@@ -16,9 +18,9 @@ def entry_point():
         n_iterations = int(n_iterations) if n_iterations else 100
         random_state = int(random_state) if random_state else 1
         learning_rate = float(learning_rate) if random_state else 0.01
-        return {'solution': predictor(n_iterations, random_state, learning_rate)}
+        return predictor(n_iterations, random_state, learning_rate)
     except Exception:
-        return ({'error': 'Error obtaining data'})
+        return 'Error obtaining data'
 
 
 if __name__ == '__main__':
