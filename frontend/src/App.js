@@ -53,7 +53,7 @@ function App() {
         <input
           type="number"
           onChange={(val) => setWantYear(parseInt(val.target.value))}
-          placeholder="Año que se quiere conocer"
+          placeholder="Año deseado"
         />
         <br />
         <button onClick={handleClick}>Predecir</button>
