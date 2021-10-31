@@ -15,11 +15,12 @@ def entry_point():
         n_iterations = request.args.get("n_iterations")
         random_state = request.args.get("random_state")
         learning_rate = request.args.get("learning_rate")
-        print(n_iterations, random_state, learning_rate)
+        want_year = request.args.get("want_year")
+        print(n_iterations, random_state, learning_rate, want_year)
         n_iterations = int(n_iterations) if n_iterations else 100
         random_state = int(random_state) if random_state else 1
         learning_rate = float(learning_rate) if random_state else 0.01
-        return {'msg': predictor(n_iterations, random_state, learning_rate)}
+        return {'msg': predictor(n_iterations, random_state, learning_rate, want_year=want_year)}
     except Exception:
         return {'msg': 'Error obteniendo data'}
 

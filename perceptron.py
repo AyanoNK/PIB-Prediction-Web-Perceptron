@@ -29,12 +29,12 @@ class CustomPerceptron(object):
         weighted_sum = np.dot(X, self.coef_[1:]) + self.coef_[0]
         return weighted_sum
 
-    def activation_function(self, X):
+    def activation_function(self, X, wantParam):
         weighted_sum = self.net_input(X)
         return np.where(weighted_sum >= 0.0, 1, 0)
 
-    def predict(self, X):
-        return self.activation_function(X)
+    def predict(self, X, percepLocation=2022):
+        return self.activation_function(X, wantParam=percepLocation)
 
     def score(self, X, y):
         misclassified_data_count = 0
@@ -48,7 +48,7 @@ class CustomPerceptron(object):
         return self.score_
 
 
-def predictor(n_iterations=100, random_state=1, learning_rate=0.01):
+def predictor(n_iterations=100, random_state=1, learning_rate=0.01, want_year=2022):
     data = open('PIB.csv', 'r')
 
     dataset = csv.reader(data, dialect='excel')
