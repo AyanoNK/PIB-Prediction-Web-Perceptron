@@ -12,16 +12,18 @@ function App() {
   );
 
   const fetchThings = async () => {
-    const response = fetch("http://localhost:5000/er").catch(() =>
-      setPredictionResult("Error")
-    );
+    const url = `http://localhost:5000/prediction?n_iterations=${iterations}&random_state=${randomState}&learning_rate=${learningRate}`;
+
+    const response = await fetch(url)
+      .then((response) => response.json())
+      .then((data) => data)
+      .catch(() => setPredictionResult("Error"));
     return response;
   };
 
   const handleClick = async () => {
-    fetchThings()
-      .then((response) => console.log(response))
-      .then(() => setPredictionResult());
+    const things = await fetchThings();
+    setPredictionResult(things.msg);
   };
 
   return (
@@ -45,6 +47,12 @@ function App() {
           type="number"
           onChange={(val) => setLearningRate(val)}
           placeholder="learning rate"
+        />
+        <br />
+        <input
+          type="number"
+          onChange={(val) => setLearningRate(val)}
+          placeholder="Año que se quiere conocer"
         />
         <br />
         <button onClick={handleClick}>Predecir</button>
